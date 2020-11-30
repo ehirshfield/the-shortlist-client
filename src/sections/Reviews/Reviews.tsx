@@ -1,6 +1,6 @@
 import React from 'react'
 import { server, useQuery } from '../../lib/api'
-import { ReviewsData, DeleteReviewData, DeleteReviewVariables, Review } from './types'
+import { ReviewsData, DeleteReviewData, DeleteReviewVariables } from './types'
 
 const REVIEWS = `
     query Reviews {
@@ -27,7 +27,7 @@ interface Props {
 }
 
 export const Reviews = ({title}: Props) => {
-    const { data, loading, refetch } = useQuery<ReviewsData>(REVIEWS)
+    const { data, loading, error, refetch } = useQuery<ReviewsData>(REVIEWS)
 
     const deleteReview = async (id: string) => {
         await server.fetch<DeleteReviewData, DeleteReviewVariables>({
@@ -54,6 +54,10 @@ export const Reviews = ({title}: Props) => {
 
     if (loading) {
         return <h2>Loading...</h2>
+    }
+
+    if (error) {
+        return <h2>Uh oh! Something went wrong - please try again later :(</h2>
     }
 
     return (
