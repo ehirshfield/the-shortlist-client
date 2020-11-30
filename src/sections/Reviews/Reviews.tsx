@@ -27,7 +27,7 @@ interface Props {
 }
 
 export const Reviews = ({title}: Props) => {
-    const { data, refetch } = useQuery<ReviewsData>(REVIEWS)
+    const { data, loading, refetch } = useQuery<ReviewsData>(REVIEWS)
 
     const deleteReview = async (id: string) => {
         await server.fetch<DeleteReviewData, DeleteReviewVariables>({
@@ -51,6 +51,10 @@ export const Reviews = ({title}: Props) => {
                     </li>
             })}
         </ul> : null;
+
+    if (loading) {
+        return <h2>Loading...</h2>
+    }
 
     return (
         <div>
