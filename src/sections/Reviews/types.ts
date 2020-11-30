@@ -1,4 +1,4 @@
-interface Review {
+export interface Review {
     id: string;
     title: string;
     image: string;
@@ -6,6 +6,14 @@ interface Review {
     rating: number;
   }
   
-  export type ReviewsData = {
+  export interface ReviewsData {
     reviews: Review[];
   };
+
+  export interface DeleteReviewData {
+    deleteReview: Review
+  }
+
+  export interface DeleteReviewVariables {
+    id: string
+  }
