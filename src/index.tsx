@@ -1,10 +1,19 @@
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache
+  } from '@apollo/client';
 import React from 'react';
 import { render } from 'react-dom';
 import { Reviews } from './sections'
 import reportWebVitals from './reportWebVitals';
 
+const client = new ApolloClient({ uri: '/api', cache: new InMemoryCache() });
+
 render(
-  <Reviews title='hello title'/>,
+  <ApolloProvider client={client}>
+    <Reviews title='hello title'/>
+  </ApolloProvider>,
   document.getElementById('root')
 );
 

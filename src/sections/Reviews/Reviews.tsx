@@ -1,8 +1,9 @@
 import React from 'react'
-import { useQuery, useMutation } from '../../lib/api'
+import { useQuery, useMutation } from '@apollo/client'
 import { ReviewsData, DeleteReviewData, DeleteReviewVariables } from './types'
+import { gql } from '@apollo/client';
 
-const REVIEWS = `
+const REVIEWS = gql`
     query Reviews {
         reviews {
             id
@@ -14,7 +15,7 @@ const REVIEWS = `
     }
 `
 
-const DELETE_REVIEW = `
+const DELETE_REVIEW = gql`
     mutation DeleteReview($id: ID!) {
         deleteReview(id: $id) {
             id
@@ -38,7 +39,7 @@ export const Reviews = ({title}: Props) => {
     ] = useMutation<DeleteReviewData, DeleteReviewVariables>(DELETE_REVIEW)
 
     const handleDeleteReview = async (id: string) => {
-        await deleteReview({ id })
+        await deleteReview({ variables: { id } })
 
         refetch()
     }
