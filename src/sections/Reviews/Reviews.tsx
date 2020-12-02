@@ -1,5 +1,5 @@
 import React from 'react'
-import { server, useQuery } from '../../lib/api'
+import { useQuery, useMutation } from '../../lib/api'
 import { ReviewsData, DeleteReviewData, DeleteReviewVariables } from './types'
 
 const REVIEWS = `
@@ -29,13 +29,16 @@ interface Props {
 export const Reviews = ({title}: Props) => {
     const { data, loading, error, refetch } = useQuery<ReviewsData>(REVIEWS)
 
-    const deleteReview = async (id: string) => {
-        await server.fetch<DeleteReviewData, DeleteReviewVariables>({
-            query: DELETE_REVIEW,
-            variables: {
-                id
-            }
-        })
+    const [
+        deleteReview,
+        {
+            loading: deleteReviewLoading,
+            error: deleteReviewError
+        }
+    ] = useMutation<DeleteReviewData, DeleteReviewVariables>(DELETE_REVIEW)
+
+    const handleDeleteReview = async (id: string) => {
+        await deleteReview({ id })
 
         refetch()
     }
@@ -47,7 +50,7 @@ export const Reviews = ({title}: Props) => {
             {reviews.map((review) => {
                 return <li key={review.id}>
                     {review.title}
-                    <button onClick={() => deleteReview(review.id)}>Delete</button>
+                    <button onClick={() => handleDeleteReview(review.id)}>Delete</button>
                     </li>
             })}
         </ul> : null;
@@ -60,10 +63,20 @@ export const Reviews = ({title}: Props) => {
         return <h2>Uh oh! Something went wrong - please try again later :(</h2>
     }
 
+    const deleteReviewLoadingMessage = deleteReviewLoading
+        ? <h4>Deletion in progress...</h4>
+        : null
+
+    const deleteReviewErrorMessage = deleteReviewError
+        ? <h4>Uh oh! Something went wrong - please try again later :(</h4>
+        : null
+
     return (
         <div>
             <h2>{title}</h2>
             {reviewList}
+            {deleteReviewLoadingMessage}
+            {deleteReviewErrorMessage}
         </div>
     
     )
