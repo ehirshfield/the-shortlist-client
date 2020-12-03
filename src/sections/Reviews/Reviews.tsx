@@ -1,7 +1,11 @@
 import React from 'react'
 import { useQuery, useMutation } from '@apollo/client'
-import { ReviewsData, DeleteReviewData, DeleteReviewVariables } from './types'
+import { Alert, List, Avatar, Button, Spin } from 'antd'
 import { gql } from '@apollo/client';
+import { Reviews as ReviewsData } from './__generated__/Reviews'
+import { DeleteReview as DeleteReviewData, DeleteReviewVariables } from './__generated__/DeleteReview'
+import { ReviewsSkeleton } from './components'
+import './styles/Reviews.css'
 
 const REVIEWS = gql`
     query Reviews {
@@ -28,7 +32,7 @@ interface Props {
 }
 
 export const Reviews = ({title}: Props) => {
-    const { data, loading, error, refetch } = useQuery<ReviewsData>(REVIEWS)
+    const { loading, error, data, refetch } = useQuery<ReviewsData>(REVIEWS)
 
     const [
         deleteReview,
@@ -46,38 +50,53 @@ export const Reviews = ({title}: Props) => {
 
     const reviews = data ? data.reviews : null
 
-    const reviewList = reviews ?
-        <ul>
-            {reviews.map((review) => {
-                return <li key={review.id}>
-                    {review.title}
-                    <button onClick={() => handleDeleteReview(review.id)}>Delete</button>
-                    </li>
-            })}
-        </ul> : null;
+    const reviewList = reviews ? (
+        <List
+            itemLayout="horizontal"
+            dataSource={reviews}
+            renderItem={(review) => (
+                <List.Item actions={[<Button type="primary" onClick={() => handleDeleteReview(review.id)}>Delete</Button>]}>
+                    <List.Item.Meta
+                        title={review.title}
+                        description={review.body}
+                        avatar={<Avatar src={review.image} shape="square" size={48}/>}
+                    />
+                </List.Item>
+            )}
+            />
+    ) : null
 
     if (loading) {
-        return <h2>Loading...</h2>
+        return (
+            <div className="reviews">
+                <ReviewsSkeleton title={title} />
+            </div>
+        )
     }
 
     if (error) {
-        return <h2>Uh oh! Something went wrong - please try again later :(</h2>
+        return (
+            <div className="reviews">
+                <ReviewsSkeleton title={title} error />
+            </div>
+        ) 
     }
 
-    const deleteReviewLoadingMessage = deleteReviewLoading
-        ? <h4>Deletion in progress...</h4>
-        : null
-
-    const deleteReviewErrorMessage = deleteReviewError
-        ? <h4>Uh oh! Something went wrong - please try again later :(</h4>
-        : null
+    const deleteReviewErrorAlert = deleteReviewError ? (
+        <Alert
+            type="error"
+            message="Uh oh! Something went wrong - please try again later :("
+            className="reviews__alert"
+        />
+     ) : null
 
     return (
-        <div>
-            <h2>{title}</h2>
-            {reviewList}
-            {deleteReviewLoadingMessage}
-            {deleteReviewErrorMessage}
+        <div className="reviews">
+            <Spin spinning={deleteReviewLoading}>
+                {deleteReviewErrorAlert}
+                <h2>{title}</h2>
+                {reviewList}
+            </Spin>
         </div>
     
     )

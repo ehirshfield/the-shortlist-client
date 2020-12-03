@@ -7,6 +7,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Reviews } from './sections'
 import reportWebVitals from './reportWebVitals';
+import './styles/index.css'
 
 const client = new ApolloClient({ uri: '/api', cache: new InMemoryCache() });
 
