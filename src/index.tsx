@@ -5,15 +5,31 @@ import {
   } from '@apollo/client';
 import React from 'react';
 import { render } from 'react-dom';
-import { Reviews } from './sections'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Home, Author, Review, Reviews, NotFound, User } from './sections'
 import reportWebVitals from './reportWebVitals';
 import './styles/index.css'
 
 const client = new ApolloClient({ uri: '/api', cache: new InMemoryCache() });
 
+const App = () => {
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/author" component={Author} />
+        <Route exact path="/review/:id" component={Review} />
+        <Route exact path="/reviews/:location?" component={Reviews} />
+        <Route exact path="/user/:id" component={User} />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
+  )
+}
+
 render(
   <ApolloProvider client={client}>
-    <Reviews title='hello title'/>
+    <App />
   </ApolloProvider>,
   document.getElementById('root')
 );
