@@ -1,3 +1,4 @@
+export * from './AppHeader';
 export * from './Reviews';
 export * from './Author';
 export * from './Home';
