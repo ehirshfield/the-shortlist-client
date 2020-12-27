@@ -28,7 +28,13 @@ import reportWebVitals from './reportWebVitals';
 import './styles/index.css';
 import { AppHeaderSkeleton, ErrorBanner } from './lib/components';
 
-const client = new ApolloClient({ uri: '/api', cache: new InMemoryCache() });
+const client = new ApolloClient({
+	uri: '/api',
+	cache: new InMemoryCache(),
+	headers: {
+		'X-CSRF-TOKEN': sessionStorage.getItem('token') || '',
+	},
+});
 
 const initialViewer: Viewer = {
 	id: null,
@@ -43,6 +49,12 @@ const App = () => {
 		onCompleted: (data) => {
 			if (data && data.logIn) {
 				setViewer(data.logIn);
+
+				if (data.logIn.token) {
+					sessionStorage.setItem('token', data.logIn.token);
+				} else {
+					sessionStorage.removeItem('token');
+				}
 			}
 		},
 	});
