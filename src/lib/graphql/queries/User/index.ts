@@ -12,7 +12,9 @@ export const USER = gql`
 				result {
 					id
 					title
-					author
+					author {
+						id
+					}
 					image
 					rating
 					type

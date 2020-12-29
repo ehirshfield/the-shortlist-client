@@ -9,11 +9,16 @@ import { ReviewType } from "./../../../globalTypes";
 // GraphQL query operation: User
 // ====================================================
 
+export interface User_user_reviews_result_author {
+  __typename: "User";
+  id: string;
+}
+
 export interface User_user_reviews_result {
   __typename: "Review";
   id: string;
   title: string;
-  author: string;
+  author: User_user_reviews_result_author;
   image: string;
   rating: number;
   type: ReviewType;
