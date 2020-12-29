@@ -7,6 +7,11 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum ReviewType {
+  RECIPE = "RECIPE",
+  RESTAURANT = "RESTAURANT",
+}
+
 export interface LogInInput {
   code: string;
 }

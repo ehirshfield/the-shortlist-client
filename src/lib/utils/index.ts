@@ -17,3 +17,5 @@ export const displaySuccessNotification = (
 export const displayErrorMessage = (error: string) => {
 	return message.error(error);
 };
+
+export const iconColor = '#1890ff';
