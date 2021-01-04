@@ -9,7 +9,9 @@ interface Props {
 		id: string;
 		title: string;
 		image: string;
-		author: string;
+		author: {
+			id: string;
+		};
 		rating: number;
 		type: string;
 	};
@@ -41,7 +43,7 @@ export const ReviewCard = ({ review }: Props) => {
 							{title}
 						</Text>
 						<Text ellipsis className='listing-card__address'>
-							{author}
+							{author.id}
 						</Text>
 					</div>
 					<div className='listing-card__dimensions listing-card__dimensions--guests'>
