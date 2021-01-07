@@ -29,9 +29,13 @@ export const ReviewCard = ({ review }: Props) => {
 				cover={
 					<div
 						className='listing-card__cover-img'
-						style={{ backgroundImage: `url(${image})` }}
+						style={{
+							backgroundImage: `url(${image})`,
+							height: 195,
+						}}
 					/>
 				}
+				style={{ width: 292 }}
 			>
 				<div className='listing-card__details'>
 					<div className='listing-card__description'>
