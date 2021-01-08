@@ -12,6 +12,7 @@ import { ReviewsFilter, ReviewType } from "./../../../globalTypes";
 export interface Reviews_reviews_result_author {
   __typename: "User";
   id: string;
+  name: string;
 }
 
 export interface Reviews_reviews_result {
@@ -26,6 +27,8 @@ export interface Reviews_reviews_result {
 
 export interface Reviews_reviews {
   __typename: "Reviews";
+  total: number;
+  region: string | null;
   result: Reviews_reviews_result[];
 }
 
@@ -34,6 +37,7 @@ export interface Reviews {
 }
 
 export interface ReviewsVariables {
+  location?: string | null;
   filter: ReviewsFilter;
   limit: number;
   page: number;

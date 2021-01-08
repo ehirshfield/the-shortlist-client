@@ -1,8 +1,20 @@
 import { gql } from '@apollo/client';
 
 export const REVIEWS = gql`
-	query Reviews($filter: ReviewsFilter!, $limit: Int!, $page: Int!) {
-		reviews(filter: $filter, limit: $limit, page: $page) {
+	query Reviews(
+		$location: String
+		$filter: ReviewsFilter!
+		$limit: Int!
+		$page: Int!
+	) {
+		reviews(
+			location: $location
+			filter: $filter
+			limit: $limit
+			page: $page
+		) {
+			total
+			region
 			result {
 				id
 				title
@@ -11,6 +23,7 @@ export const REVIEWS = gql`
 				type
 				author {
 					id
+					name
 				}
 			}
 		}
