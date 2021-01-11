@@ -21,6 +21,16 @@ export interface LogInInput {
   code: string;
 }
 
+export interface addReviewInput {
+  title: string;
+  body: string;
+  image: string;
+  type: ReviewType;
+  rating: number;
+  url?: string | null;
+  address?: string | null;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================
