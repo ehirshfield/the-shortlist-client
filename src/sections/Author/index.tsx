@@ -25,6 +25,7 @@ import {
 } from '../../lib/graphql/mutations/AddReview/__generated__/AddReview';
 import { ReviewType } from '../../lib/graphql/globalTypes';
 import { Link, Redirect } from 'react-router-dom';
+import { useScrollToTop } from '../../lib/hooks';
 import {
 	displayErrorMessage,
 	iconColor,
@@ -62,9 +63,10 @@ export const Author = ({ viewer }: Props) => {
 		},
 	});
 
+	useScrollToTop();
+
 	const handleImageUpload = (info: UploadChangeParam) => {
 		const { file } = info;
-		console.log('file :>> ', file);
 		if (file.status === 'uploading') {
 			setImageLoading(true);
 			return;
@@ -88,8 +90,6 @@ export const Author = ({ viewer }: Props) => {
 		delete input.city;
 		delete input.state;
 		delete input.zipcode;
-
-		console.log(input);
 
 		addReview({
 			variables: {
@@ -179,6 +179,21 @@ export const Author = ({ viewer }: Props) => {
 					<Input
 						maxLength={100}
 						placeholder='Tom goes to McDonalds again'
+					/>
+				</Item>
+				<Item
+					name='subtitle'
+					label='Subtitle'
+					extra='Max character count of 200'
+					rules={[
+						{
+							required: true,
+						},
+					]}
+				>
+					<Input
+						maxLength={200}
+						placeholder='Will he order the Filet-o-Fish?'
 					/>
 				</Item>
 				<Item

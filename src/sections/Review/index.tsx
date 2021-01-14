@@ -10,6 +10,7 @@ import { ErrorBanner, PageSkeleton } from '../../lib/components';
 import { Layout, Row, Col } from 'antd';
 import { ReviewDetails, ReviewSideNotes } from './components';
 import { ReviewType } from '../../lib/graphql/globalTypes';
+import { useScrollToTop } from '../../lib/hooks';
 
 interface MatchParams {
 	id: string;
@@ -26,6 +27,8 @@ export const Review = ({ match }: RouteComponentProps<MatchParams>) => {
 			},
 		}
 	);
+
+	useScrollToTop();
 
 	if (loading) {
 		return (

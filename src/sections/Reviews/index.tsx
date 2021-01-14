@@ -14,6 +14,7 @@ import {
 	ReviewsPagination,
 	ReviewsSkeleton,
 } from './components';
+import { useScrollToTop } from '../../lib/hooks';
 
 const { Content } = Layout;
 const { Title, Paragraph, Text } = Typography;
@@ -40,6 +41,8 @@ export const Reviews = ({ match }: RouteComponentProps<MatchParams>) => {
 			},
 		}
 	);
+
+	useScrollToTop();
 
 	useEffect(() => {
 		setPage(1);

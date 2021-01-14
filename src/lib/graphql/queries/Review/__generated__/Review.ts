@@ -20,6 +20,7 @@ export interface Review_review {
   __typename: "Review";
   id: string;
   title: string;
+  subtitle: string;
   image: string;
   author: Review_review_author;
   type: ReviewType;

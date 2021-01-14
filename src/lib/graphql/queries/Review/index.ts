@@ -5,6 +5,7 @@ export const REVIEW = gql`
 		review(id: $id) {
 			id
 			title
+			subtitle
 			image
 			author {
 				id

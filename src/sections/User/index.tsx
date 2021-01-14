@@ -7,6 +7,7 @@ import {
 	User as UserData,
 	UserVariables,
 } from '../../lib/graphql/queries/User/__generated__/User';
+import { useScrollToTop } from '../../lib/hooks';
 import { Viewer } from '../../lib/types';
 import { ErrorBanner, PageSkeleton } from '../../lib/components';
 import { UserProfile, UserReviews } from './components';
@@ -33,7 +34,10 @@ export const User = ({
 			reviewsPage,
 			limit: PAGE_LIMIT,
 		},
+		fetchPolicy: 'cache-and-network',
 	});
+
+	useScrollToTop();
 
 	if (loading) {
 		return (

@@ -10,6 +10,7 @@ import {
 	LogIn as LogInData,
 	LogInVariables,
 } from '../../lib/graphql/mutations/LogIn/__generated__/LogIn';
+import { useScrollToTop } from '../../lib/hooks';
 import {
 	displayErrorMessage,
 	displaySuccessNotification,
@@ -52,6 +53,8 @@ export const Login = ({ setViewer }: Props) => {
 			});
 		}
 	}, []);
+
+	useScrollToTop();
 
 	const handleAuthorize = async () => {
 		try {

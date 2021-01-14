@@ -15,6 +15,7 @@ export const ReviewDetails = ({ review }: Props) => {
 	const {
 		// id,
 		title,
+		subtitle,
 		image,
 		author,
 		type,
@@ -70,7 +71,7 @@ export const ReviewDetails = ({ review }: Props) => {
 			<Divider />
 
 			<div className='listing-details__section'>
-				<Title level={4}>About this space</Title>
+				<Title level={4}>{subtitle}</Title>
 				<div className='listing-details__about-items'>
 					<Tag color='magenta'>{type}</Tag>
 					<Tag color='magenta'>{rating} / 10</Tag>

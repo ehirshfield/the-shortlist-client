@@ -18,6 +18,7 @@ export const REVIEWS = gql`
 			result {
 				id
 				title
+				subtitle
 				image
 				rating
 				type

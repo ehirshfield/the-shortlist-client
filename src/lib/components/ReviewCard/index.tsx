@@ -8,6 +8,7 @@ interface Props {
 	review: {
 		id: string;
 		title: string;
+		subtitle: string;
 		image: string;
 		author: {
 			id: string;
@@ -20,7 +21,7 @@ interface Props {
 const { Text, Title } = Typography;
 
 export const ReviewCard = ({ review }: Props) => {
-	const { id, title, image, author, rating, type } = review;
+	const { id, title, image, rating, type, subtitle } = review;
 
 	return (
 		<Link to={`/review/${id}`}>
@@ -47,12 +48,12 @@ export const ReviewCard = ({ review }: Props) => {
 							{title}
 						</Text>
 						<Text ellipsis className='listing-card__address'>
-							{author.id}
+							{subtitle}
 						</Text>
 					</div>
 					<div className='listing-card__dimensions listing-card__dimensions--guests'>
 						<UserOutlined style={{ color: iconColor }} />
-						<Text>{type} Review</Text>
+						<Text> {type} Review</Text>
 					</div>
 				</div>
 			</Card>

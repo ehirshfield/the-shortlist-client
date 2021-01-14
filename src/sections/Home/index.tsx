@@ -9,6 +9,7 @@ import {
 	ReviewsVariables,
 } from '../../lib/graphql/queries/Reviews/__generated__/Reviews';
 import { ReviewsFilter } from '../../lib/graphql/globalTypes';
+import { useScrollToTop } from '../../lib/hooks';
 import { displayErrorMessage } from '../../lib/utils';
 
 import mapBackground from './assets/map-background.jpg';
@@ -28,7 +29,10 @@ export const Home = ({ history }: RouteComponentProps) => {
 			limit: PAGE_LIMIT,
 			page: PAGE_NUMBER,
 		},
+		fetchPolicy: 'cache-and-network',
 	});
+
+	useScrollToTop();
 
 	const onSearch = (value: string) => {
 		const trimmedValue = value.trim();

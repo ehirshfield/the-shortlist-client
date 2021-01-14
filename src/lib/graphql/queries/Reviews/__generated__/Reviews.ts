@@ -19,6 +19,7 @@ export interface Reviews_reviews_result {
   __typename: "Review";
   id: string;
   title: string;
+  subtitle: string;
   image: string;
   rating: number;
   type: ReviewType;
