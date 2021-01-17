@@ -41,6 +41,7 @@ const initialViewer: Viewer = {
 	token: null,
 	avatar: null,
 	didRequest: false,
+	authorized: false,
 };
 
 const App = () => {

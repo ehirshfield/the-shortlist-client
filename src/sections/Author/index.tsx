@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { useMutation } from '@apollo/client';
 import {
 	Layout,
@@ -46,6 +46,7 @@ export const Author = ({ viewer }: Props) => {
 	const [imageBase64Value, setImageBase64Value] = useState<string | null>(
 		null
 	);
+	const [reviewType, setReviewType] = useState(ReviewType.RECIPE);
 
 	const [addReview, { loading, data }] = useMutation<
 		AddReviewData,
@@ -80,22 +81,99 @@ export const Author = ({ viewer }: Props) => {
 	};
 
 	const onFinish = (values: any) => {
-		const fullAddress = `${values.address}, ${values.city}, ${values.state}, ${values.zipcode}`;
+		let input;
+		if (values.address) {
+			const fullAddress = `${values.address}, ${values.city}, ${values.state}, ${values.zipcode}`;
 
-		const input = {
-			...values,
-			address: fullAddress,
-			image: imageBase64Value,
-		};
-		delete input.city;
-		delete input.state;
-		delete input.zipcode;
+			input = {
+				...values,
+				address: fullAddress,
+				image: imageBase64Value,
+			};
+			delete input.city;
+			delete input.state;
+			delete input.zipcode;
+		} else {
+			input = {
+				...values,
+				image: imageBase64Value,
+			};
+		}
 
 		addReview({
 			variables: {
 				input,
 			},
 		});
+	};
+
+	const renderRestaurantInputs = () => {
+		return (
+			<Fragment>
+				<Item
+					name='address'
+					label='Address'
+					rules={[
+						{
+							required: true,
+						},
+					]}
+				>
+					<Input placeholder='123 Fake Street' />
+				</Item>
+				<Item
+					name='city'
+					label='City/Town'
+					rules={[
+						{
+							required: true,
+						},
+					]}
+				>
+					<Input placeholder='Santa Barbara' />
+				</Item>
+				<Item
+					name='state'
+					label='State/Province'
+					rules={[
+						{
+							required: true,
+						},
+					]}
+				>
+					<Input placeholder='California' />
+				</Item>
+				<Item
+					name='zipcode'
+					label='Zip/Postal Code'
+					rules={[
+						{
+							required: true,
+						},
+					]}
+				>
+					<Input placeholder='90210' />
+				</Item>
+			</Fragment>
+		);
+	};
+
+	const renderRecipeInputs = () => {
+		return (
+			<Fragment>
+				<Item
+					name='url'
+					label='Website URL'
+					rules={[
+						{
+							required: true,
+						},
+					]}
+				>
+					<Input placeholder='www.seriouseats.com/yummy-thing' />
+				</Item>
+			</Fragment>
+		);
 	};
 
 	if (!viewer.id) {
@@ -106,8 +184,8 @@ export const Author = ({ viewer }: Props) => {
 						You need to be signed in to write reviews
 					</Title>
 					<Text type='secondary'>
-						Only certain usera are allowed to write reviews. You can
-						sign in at the <Link to='/login'>login page</Link>
+						Only authorized users are allowed to write reviews. You
+						can sign in at the <Link to='/login'>login page</Link>
 					</Text>
 				</div>
 			</Content>
@@ -154,7 +232,10 @@ export const Author = ({ viewer }: Props) => {
 						},
 					]}
 				>
-					<Radio.Group>
+					<Radio.Group
+						defaultValue={reviewType}
+						onChange={(e) => setReviewType(e.target.value)}
+					>
 						<Radio.Button value={ReviewType.RECIPE}>
 							<BookOutlined style={{ color: iconColor }} />
 							<span>Recipe</span>
@@ -212,50 +293,10 @@ export const Author = ({ viewer }: Props) => {
 						placeholder='I liked it, like a lot. A lot, a lot!'
 					/>
 				</Item>
-				<Item
-					name='address'
-					label='Address'
-					rules={[
-						{
-							required: true,
-						},
-					]}
-				>
-					<Input placeholder='123 Fake Street' />
-				</Item>
-				<Item
-					name='city'
-					label='City/Town'
-					rules={[
-						{
-							required: true,
-						},
-					]}
-				>
-					<Input placeholder='Santa Barbara' />
-				</Item>
-				<Item
-					name='state'
-					label='State/Province'
-					rules={[
-						{
-							required: true,
-						},
-					]}
-				>
-					<Input placeholder='California' />
-				</Item>
-				<Item
-					name='zipcode'
-					label='Zip/Postal Code'
-					rules={[
-						{
-							required: true,
-						},
-					]}
-				>
-					<Input placeholder='90210' />
-				</Item>
+
+				{reviewType === ReviewType.RESTAURANT
+					? renderRestaurantInputs()
+					: renderRecipeInputs()}
 
 				<Item
 					name='image'

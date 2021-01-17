@@ -12,6 +12,7 @@ export const USER = gql`
 				result {
 					id
 					title
+					subtitle
 					author {
 						id
 					}

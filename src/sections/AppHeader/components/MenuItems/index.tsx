@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { Button, Menu, Avatar } from 'antd';
-import { HomeOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
+import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import { LOG_OUT } from '../../../../lib/graphql/mutations';
 import { LogOut as LogOutData } from '../../../../lib/graphql/mutations/LogOut/__generated__/LogOut';
 import {
@@ -62,11 +62,16 @@ export const MenuItems = ({ viewer, setViewer }: Props) => {
 
 	return (
 		<Menu mode='horizontal' selectable={false} className='menu'>
+			{viewer.authorized ? (
+				<Item key='/author'>
+					<Link to='/author'>Create</Link>
+				</Item>
+			) : null}
+			<Item key='/reviews'>
+				<Link to='/reviews'>Reviews</Link>
+			</Item>
 			<Item key='/about'>
-				<Link to='/about'>
-					<HomeOutlined />
-					About
-				</Link>
+				<Link to='/about'>About</Link>
 			</Item>
 			{subMenuLogin}
 		</Menu>

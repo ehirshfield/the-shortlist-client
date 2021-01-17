@@ -66,6 +66,8 @@ export const Home = ({ history }: RouteComponentProps) => {
 			className='home'
 			style={{ backgroundImage: `url(${mapBackground})` }}
 		>
+			{renderReviewsSection()}
+
 			<HomeHero onSearch={onSearch} />
 
 			<div className='home__cta-section'>
@@ -76,14 +78,12 @@ export const Home = ({ history }: RouteComponentProps) => {
 					Helping you make the best decisions in dining.
 				</Paragraph>
 				<Link
-					to='/listings/united%20states'
+					to='/reviews/'
 					className='ant-btn ant-btn-primary ant-btn-lg home__cta-section-button'
 				>
 					Most popular Shortlist
 				</Link>
 			</div>
-
-			{renderReviewsSection()}
 
 			<div className='home__listings'>
 				<Title level={4} className='home__listings-title'>
@@ -91,7 +91,7 @@ export const Home = ({ history }: RouteComponentProps) => {
 				</Title>
 				<Row gutter={12}>
 					<Col xs={24} sm={12}>
-						<Link to='/listings/recipes'>
+						<Link to='/reviews/recipes'>
 							<div className='home__listings-img-cover'>
 								<img
 									src={recipeImage}
@@ -102,7 +102,7 @@ export const Home = ({ history }: RouteComponentProps) => {
 						</Link>
 					</Col>
 					<Col xs={24} sm={12}>
-						<Link to='/listings/restaurants'>
+						<Link to='/reviews/restaurants'>
 							<div className='home__listings-img-cover'>
 								<img
 									src={restaurantImage}

@@ -18,7 +18,7 @@ export const HomeHero = ({ onSearch }: Props) => {
 	return (
 		<div className='home-hero'>
 			<div className='home-hero__search'>
-				<Title className='home-hero__title'>
+				<Title level={2} className='home-hero__title'>
 					Search a city for a Shortlist
 				</Title>
 				<Search

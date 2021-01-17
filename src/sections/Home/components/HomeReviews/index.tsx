@@ -13,9 +13,7 @@ const { Title } = Typography;
 export const HomeReviews = ({ title, reviews }: Props) => {
 	return (
 		<div className='home-listings'>
-			<Title level={4} className='home-listings__title'>
-				{title}
-			</Title>
+			<Title className='home-listings__title'>{title}</Title>
 			<List
 				grid={{
 					gutter: 8,

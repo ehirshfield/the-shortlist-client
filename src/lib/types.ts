@@ -3,4 +3,5 @@ export interface Viewer {
 	token: string | null;
 	avatar: string | null;
 	didRequest: boolean;
+	authorized: boolean;
 }

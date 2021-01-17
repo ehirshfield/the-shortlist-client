@@ -7,6 +7,7 @@ export const LOG_IN = gql`
 			token
 			avatar
 			didRequest
+			authorized
 		}
 	}
 `;

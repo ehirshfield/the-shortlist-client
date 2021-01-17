@@ -15,6 +15,7 @@ export interface LogIn_logIn {
   token: string | null;
   avatar: string | null;
   didRequest: boolean;
+  authorized: boolean;
 }
 
 export interface LogIn {
