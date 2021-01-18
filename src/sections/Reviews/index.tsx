@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { RouteComponentProps, Link } from 'react-router-dom';
+import { RouteComponentProps, Link, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { Layout, List, Typography, Affix } from 'antd';
 import { ReviewCard, ErrorBanner } from '../../lib/components';
@@ -24,18 +24,24 @@ interface MatchParams {
 	location: string;
 }
 
+interface stateType {
+	filter: ReviewsFilter;
+}
+
 export const Reviews = ({ match }: RouteComponentProps<MatchParams>) => {
 	const locationRef = useRef(match.params.location);
-	const [filter, setFilter] = useState(ReviewsFilter.RATING_HIGH_TO_LOW);
+	const { state } = useLocation<stateType>();
+	const [filter, setFilter] = useState(
+		state && state.filter ? state.filter : ReviewsFilter.NEWEST
+	);
 	const [page, setPage] = useState(1);
-
 	const { loading, data, error } = useQuery<ReviewsData, ReviewsVariables>(
 		REVIEWS,
 		{
 			skip: locationRef.current !== match.params.location && page !== 1,
 			variables: {
 				location: match.params.location,
-				filter,
+				filter: filter,
 				limit: PAGE_LIMIT,
 				page,
 			},

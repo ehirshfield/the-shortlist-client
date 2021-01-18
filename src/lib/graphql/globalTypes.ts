@@ -13,6 +13,7 @@ export enum ReviewType {
 }
 
 export enum ReviewsFilter {
+  NEWEST = "NEWEST",
   RATING_HIGH_TO_LOW = "RATING_HIGH_TO_LOW",
   RATING_LOW_TO_HIGH = "RATING_LOW_TO_HIGH",
 }

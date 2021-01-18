@@ -78,7 +78,12 @@ export const Home = ({ history }: RouteComponentProps) => {
 					Helping you make the best decisions in dining.
 				</Paragraph>
 				<Link
-					to='/reviews/'
+					to={{
+						pathname: '/reviews/',
+						state: {
+							filter: ReviewsFilter.RATING_HIGH_TO_LOW,
+						},
+					}}
 					className='ant-btn ant-btn-primary ant-btn-lg home__cta-section-button'
 				>
 					Most popular Shortlist

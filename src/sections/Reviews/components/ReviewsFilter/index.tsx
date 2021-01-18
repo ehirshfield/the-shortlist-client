@@ -23,6 +23,7 @@ export const ReviewsFilters = ({ filter, setFilter }: Props) => {
 				<Option value={ReviewsFilter.RATING_LOW_TO_HIGH}>
 					Rating: Low to High
 				</Option>
+				<Option value={ReviewsFilter.NEWEST}>Most Recent</Option>
 			</Select>
 		</div>
 	);
