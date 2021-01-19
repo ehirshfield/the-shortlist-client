@@ -17,6 +17,7 @@ import {
 	NotFound,
 	User,
 	Login,
+	About,
 } from './sections';
 import { LOG_IN } from './lib/graphql/mutations';
 import {
@@ -90,6 +91,7 @@ const App = () => {
 
 				<Switch>
 					<Route exact path='/' component={Home} />
+					<Route exact path='/about' component={About} />
 					<Route
 						exact
 						path='/author'
