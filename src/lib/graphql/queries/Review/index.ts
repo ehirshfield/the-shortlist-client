@@ -18,6 +18,7 @@ export const REVIEW = gql`
 			city
 			address
 			url
+			highlights
 		}
 	}
 `;

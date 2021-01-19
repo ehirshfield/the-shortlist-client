@@ -1,14 +1,31 @@
-import React from 'react';
-import { Card, Divider, Typography } from 'antd';
+import React, { Fragment } from 'react';
+import { Card, Divider, Typography, List } from 'antd';
 import { Review as ReviewData } from '../../../../lib/graphql/queries/Review/__generated__/Review';
 
 const { Paragraph, Title } = Typography;
 
 interface Props {
 	type: ReviewData['review']['type'];
+	url: ReviewData['review']['url'];
+	highlights: ReviewData['review']['highlights'];
 }
 
-export const ReviewSideNotes = ({ type }: Props) => {
+export const ReviewSideNotes = ({ type, url, highlights }: Props) => {
+	const recipeLinkElement = (
+		<Fragment>
+			<Divider />
+			<div>
+				<Paragraph strong>Link to the recipe site</Paragraph>
+				<a
+					className='not-found__cta ant-btn ant-btn-primary ant-btn-lg'
+					href={url || ''}
+				>
+					Original Recipe
+				</a>
+			</div>
+		</Fragment>
+	);
+
 	return (
 		<div className='listing-booking'>
 			<Card className='listing-booking__card'>
@@ -19,14 +36,18 @@ export const ReviewSideNotes = ({ type }: Props) => {
 							className='listing-booking__card-title'
 						>
 							{type === 'RESTAURANT'
-								? 'What Was Ordered'
-								: 'Recipe Tips'}
+								? 'Highlights'
+								: 'Recipe Highlights'}
 						</Title>
 					</Paragraph>
 					<Divider />
-					<div className='listing-booking__card-date-picker'>
-						<Paragraph strong>Blah blah blah</Paragraph>
-					</div>
+					<List
+						size='large'
+						dataSource={highlights!}
+						renderItem={(item) => <List.Item>{item}</List.Item>}
+						itemLayout='vertical'
+					/>
+					{type === 'RECIPE' ? recipeLinkElement : null}
 				</div>
 			</Card>
 		</div>

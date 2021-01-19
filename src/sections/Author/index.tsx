@@ -16,6 +16,7 @@ import {
 	BankOutlined,
 	LoadingOutlined,
 	PlusOutlined,
+	MinusCircleOutlined,
 } from '@ant-design/icons';
 import { Viewer } from '../../lib/types';
 import { ADD_REVIEW } from '../../lib/graphql/mutations';
@@ -38,7 +39,7 @@ interface Props {
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
-const { Item } = Form;
+const { Item, List } = Form;
 
 export const Author = ({ viewer }: Props) => {
 	const [form] = Form.useForm();
@@ -176,6 +177,82 @@ export const Author = ({ viewer }: Props) => {
 		);
 	};
 
+	const renderHighlightsInputs = () => {
+		return (
+			<Item
+				label='Highlights'
+				rules={[
+					{
+						required: true,
+					},
+				]}
+			>
+				<List
+					name='highlights'
+					rules={[
+						{
+							validator: async (_, highlights) => {
+								if (!highlights || highlights.length < 3) {
+									return Promise.reject(
+										new Error('Add at least 3 highlights')
+									);
+								}
+							},
+						},
+					]}
+				>
+					{(fields, { add, remove }, { errors }) => (
+						<>
+							{fields.map((field, index) => (
+								<Item
+									label={index === 0 ? '' : ''}
+									required={false}
+									key={field.key}
+								>
+									<Item
+										{...field}
+										validateTrigger={['onChange', 'onBlur']}
+										rules={[
+											{
+												required: true,
+												whitespace: true,
+												message:
+													'Please input a highlight or delete this field.',
+											},
+										]}
+										noStyle
+									>
+										<Input
+											placeholder='A fun highlight!'
+											style={{ width: '85%' }}
+										/>
+									</Item>
+									{fields.length > 1 ? (
+										<MinusCircleOutlined
+											className='dynamic-delete-button'
+											onClick={() => remove(field.name)}
+										/>
+									) : null}
+								</Item>
+							))}
+							<Item>
+								<Button
+									type='dashed'
+									onClick={() => add()}
+									style={{ width: '60%' }}
+									icon={<PlusOutlined />}
+								>
+									Add a highlight
+								</Button>
+								<Form.ErrorList errors={errors} />
+							</Item>
+						</>
+					)}
+				</List>
+			</Item>
+		);
+	};
+
 	if (!viewer.id) {
 		return (
 			<Content className='host-content'>
@@ -213,7 +290,14 @@ export const Author = ({ viewer }: Props) => {
 
 	return (
 		<Content className='host-content'>
-			<Form layout='vertical' form={form} onFinish={onFinish}>
+			<Form
+				layout='vertical'
+				form={form}
+				onFinish={onFinish}
+				initialValues={{
+					['type']: reviewType,
+				}}
+			>
 				<div className='host__form-header'>
 					<Title level={3} className='host__form-title'>
 						Fill out your review here!
@@ -233,7 +317,6 @@ export const Author = ({ viewer }: Props) => {
 					]}
 				>
 					<Radio.Group
-						defaultValue={reviewType}
 						onChange={(e) => setReviewType(e.target.value)}
 					>
 						<Radio.Button value={ReviewType.RECIPE}>
@@ -297,6 +380,8 @@ export const Author = ({ viewer }: Props) => {
 				{reviewType === ReviewType.RESTAURANT
 					? renderRestaurantInputs()
 					: renderRecipeInputs()}
+
+				{renderHighlightsInputs()}
 
 				<Item
 					name='image'

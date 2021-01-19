@@ -37,6 +37,7 @@ export interface addReviewInput {
   rating: number;
   url?: string | null;
   address?: string | null;
+  highlights?: string[] | null;
 }
 
 //==============================================================
