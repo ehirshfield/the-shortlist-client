@@ -8,7 +8,7 @@ import {
 	Reviews as ReviewsData,
 	ReviewsVariables,
 } from '../../lib/graphql/queries/Reviews/__generated__/Reviews';
-import { ReviewsFilter } from '../../lib/graphql/globalTypes';
+import { ReviewsFilter, TypesFilter } from '../../lib/graphql/globalTypes';
 import {
 	ReviewsFilters,
 	ReviewsPagination,
@@ -26,6 +26,7 @@ interface MatchParams {
 
 interface stateType {
 	filter: ReviewsFilter;
+	typesFilter: TypesFilter;
 }
 
 export const Reviews = ({ match }: RouteComponentProps<MatchParams>) => {
@@ -34,6 +35,9 @@ export const Reviews = ({ match }: RouteComponentProps<MatchParams>) => {
 	const [filter, setFilter] = useState(
 		state && state.filter ? state.filter : ReviewsFilter.NEWEST
 	);
+	const [typesFilter, setTypesFilter] = useState(
+		state && state.typesFilter ? state.typesFilter : TypesFilter.ALL
+	);
 	const [page, setPage] = useState(1);
 	const { loading, data, error } = useQuery<ReviewsData, ReviewsVariables>(
 		REVIEWS,
@@ -41,7 +45,8 @@ export const Reviews = ({ match }: RouteComponentProps<MatchParams>) => {
 			skip: locationRef.current !== match.params.location && page !== 1,
 			variables: {
 				location: match.params.location,
-				filter: filter,
+				filter,
+				typesFilter,
 				limit: PAGE_LIMIT,
 				page,
 			},
@@ -85,7 +90,12 @@ export const Reviews = ({ match }: RouteComponentProps<MatchParams>) => {
 						limit={PAGE_LIMIT}
 						setPage={setPage}
 					/>
-					<ReviewsFilters filter={filter} setFilter={setFilter} />
+					<ReviewsFilters
+						filter={filter}
+						setFilter={setFilter}
+						typesFilter={typesFilter}
+						setTypesFilter={setTypesFilter}
+					/>
 				</Affix>
 
 				<List

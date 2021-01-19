@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { ReviewsFilter, ReviewType } from "./../../../globalTypes";
+import { ReviewsFilter, TypesFilter, ReviewType } from "./../../../globalTypes";
 
 // ====================================================
 // GraphQL query operation: Reviews
@@ -40,6 +40,7 @@ export interface Reviews {
 export interface ReviewsVariables {
   location?: string | null;
   filter: ReviewsFilter;
+  typesFilter: TypesFilter;
   limit: number;
   page: number;
 }

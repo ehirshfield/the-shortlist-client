@@ -18,6 +18,12 @@ export enum ReviewsFilter {
   RATING_LOW_TO_HIGH = "RATING_LOW_TO_HIGH",
 }
 
+export enum TypesFilter {
+  ALL = "ALL",
+  RECIPE = "RECIPE",
+  RESTAURANT = "RESTAURANT",
+}
+
 export interface LogInInput {
   code: string;
 }

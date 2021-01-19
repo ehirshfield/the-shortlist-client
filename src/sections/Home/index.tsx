@@ -8,7 +8,7 @@ import {
 	Reviews as ReviewsData,
 	ReviewsVariables,
 } from '../../lib/graphql/queries/Reviews/__generated__/Reviews';
-import { ReviewsFilter } from '../../lib/graphql/globalTypes';
+import { ReviewsFilter, TypesFilter } from '../../lib/graphql/globalTypes';
 import { useScrollToTop } from '../../lib/hooks';
 import { displayErrorMessage } from '../../lib/utils';
 
@@ -26,6 +26,7 @@ export const Home = ({ history }: RouteComponentProps) => {
 	const { loading, data } = useQuery<ReviewsData, ReviewsVariables>(REVIEWS, {
 		variables: {
 			filter: ReviewsFilter.RATING_HIGH_TO_LOW,
+			typesFilter: TypesFilter.ALL,
 			limit: PAGE_LIMIT,
 			page: PAGE_NUMBER,
 		},
@@ -91,12 +92,19 @@ export const Home = ({ history }: RouteComponentProps) => {
 			</div>
 
 			<div className='home__listings'>
-				<Title level={4} className='home__listings-title'>
-					Types of reviews
+				<Title level={2} className='home__listings-title'>
+					Review types
 				</Title>
 				<Row gutter={12}>
 					<Col xs={24} sm={12}>
-						<Link to='/reviews/recipes'>
+						<Link
+							to={{
+								pathname: '/reviews/',
+								state: {
+									typesFilter: TypesFilter.RECIPE,
+								},
+							}}
+						>
 							<div className='home__listings-img-cover'>
 								<img
 									src={recipeImage}
@@ -107,7 +115,14 @@ export const Home = ({ history }: RouteComponentProps) => {
 						</Link>
 					</Col>
 					<Col xs={24} sm={12}>
-						<Link to='/reviews/restaurants'>
+						<Link
+							to={{
+								pathname: '/reviews/',
+								state: {
+									typesFilter: TypesFilter.RESTAURANT,
+								},
+							}}
+						>
 							<div className='home__listings-img-cover'>
 								<img
 									src={restaurantImage}
