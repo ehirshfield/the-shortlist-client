@@ -19,6 +19,7 @@ export const REVIEW = gql`
 			address
 			url
 			highlights
+			video
 		}
 	}
 `;

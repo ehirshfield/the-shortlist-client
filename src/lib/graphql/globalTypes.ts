@@ -38,6 +38,7 @@ export interface addReviewInput {
   url?: string | null;
   address?: string | null;
   highlights?: string[] | null;
+  video?: string | null;
 }
 
 //==============================================================

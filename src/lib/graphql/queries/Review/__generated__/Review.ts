@@ -30,6 +30,7 @@ export interface Review_review {
   address: string | null;
   url: string | null;
   highlights: string[] | null;
+  video: string | null;
 }
 
 export interface Review {

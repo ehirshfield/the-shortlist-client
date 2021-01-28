@@ -295,6 +295,7 @@ export const Author = ({ viewer }: Props) => {
 				form={form}
 				onFinish={onFinish}
 				initialValues={{
+					// eslint-disable-next-line
 					['type']: reviewType,
 				}}
 			>
@@ -418,6 +419,14 @@ export const Author = ({ viewer }: Props) => {
 							)}
 						</Upload>
 					</div>
+				</Item>
+
+				<Item
+					name='video'
+					label='Video Link'
+					extra='The embed link from YouTube'
+				>
+					<Input placeholder='https://www.youtube.com/embed/fZHBuNizY0Q' />
 				</Item>
 
 				<Item

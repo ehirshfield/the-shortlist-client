@@ -23,7 +23,7 @@ export const ReviewDetails = ({ review }: Props) => {
 		rating,
 		city,
 		address,
-		// url,
+		video,
 	} = review;
 
 	return (
@@ -76,10 +76,23 @@ export const ReviewDetails = ({ review }: Props) => {
 					<Tag color='magenta'>{type}</Tag>
 					<Tag color='magenta'>{rating} / 10</Tag>
 				</div>
-				<Paragraph ellipsis={{ rows: 3, expandable: true }}>
+				<Paragraph ellipsis={{ rows: 6, expandable: true }}>
 					{body}
 				</Paragraph>
 			</div>
+
+			<Divider />
+			{video ? (
+				<iframe
+					title='Supporting Video'
+					width='680'
+					height='400'
+					src={video}
+					frameBorder='0'
+					allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+					allowFullScreen
+				></iframe>
+			) : null}
 		</div>
 	);
 };
