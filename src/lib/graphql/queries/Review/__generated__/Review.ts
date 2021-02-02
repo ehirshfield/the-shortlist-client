@@ -29,8 +29,9 @@ export interface Review_review {
   city: string | null;
   address: string | null;
   url: string | null;
-  highlights: string[] | null;
+  highlights: string[];
   video: string | null;
+  lowlights: string[];
 }
 
 export interface Review {

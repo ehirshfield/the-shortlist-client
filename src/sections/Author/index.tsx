@@ -192,9 +192,9 @@ export const Author = ({ viewer }: Props) => {
 					rules={[
 						{
 							validator: async (_, highlights) => {
-								if (!highlights || highlights.length < 3) {
+								if (!highlights || highlights.length < 1) {
 									return Promise.reject(
-										new Error('Add at least 3 highlights')
+										new Error('Add at least 1 highlight!')
 									);
 								}
 							},
@@ -243,6 +243,82 @@ export const Author = ({ viewer }: Props) => {
 									icon={<PlusOutlined />}
 								>
 									Add a highlight
+								</Button>
+								<Form.ErrorList errors={errors} />
+							</Item>
+						</>
+					)}
+				</List>
+			</Item>
+		);
+	};
+
+	const renderLowlightsInputs = () => {
+		return (
+			<Item
+				label='Lowlights'
+				rules={[
+					{
+						required: true,
+					},
+				]}
+			>
+				<List
+					name='lowlights'
+					rules={[
+						{
+							validator: async (_, lowlights) => {
+								if (!lowlights || lowlights.length < 1) {
+									return Promise.reject(
+										new Error('Add at least 1 lowlight!')
+									);
+								}
+							},
+						},
+					]}
+				>
+					{(fields, { add, remove }, { errors }) => (
+						<>
+							{fields.map((field, index) => (
+								<Item
+									label={index === 0 ? '' : ''}
+									required={false}
+									key={field.key}
+								>
+									<Item
+										{...field}
+										validateTrigger={['onChange', 'onBlur']}
+										rules={[
+											{
+												required: true,
+												whitespace: true,
+												message:
+													'Please input a lowlight or delete this field.',
+											},
+										]}
+										noStyle
+									>
+										<Input
+											placeholder='A sad lowlight!'
+											style={{ width: '85%' }}
+										/>
+									</Item>
+									{fields.length > 1 ? (
+										<MinusCircleOutlined
+											className='dynamic-delete-button'
+											onClick={() => remove(field.name)}
+										/>
+									) : null}
+								</Item>
+							))}
+							<Item>
+								<Button
+									type='dashed'
+									onClick={() => add()}
+									style={{ width: '60%' }}
+									icon={<PlusOutlined />}
+								>
+									Add a lowlight
 								</Button>
 								<Form.ErrorList errors={errors} />
 							</Item>
@@ -383,6 +459,8 @@ export const Author = ({ viewer }: Props) => {
 					: renderRecipeInputs()}
 
 				{renderHighlightsInputs()}
+
+				{renderLowlightsInputs()}
 
 				<Item
 					name='image'

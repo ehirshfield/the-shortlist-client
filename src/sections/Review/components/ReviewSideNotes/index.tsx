@@ -8,9 +8,15 @@ interface Props {
 	type: ReviewData['review']['type'];
 	url: ReviewData['review']['url'];
 	highlights: ReviewData['review']['highlights'];
+	lowlights: ReviewData['review']['lowlights'];
 }
 
-export const ReviewSideNotes = ({ type, url, highlights }: Props) => {
+export const ReviewSideNotes = ({
+	type,
+	url,
+	highlights,
+	lowlights,
+}: Props) => {
 	const recipeLinkElement = (
 		<Fragment>
 			<Divider />
@@ -35,15 +41,31 @@ export const ReviewSideNotes = ({ type, url, highlights }: Props) => {
 							level={2}
 							className='listing-booking__card-title'
 						>
-							{type === 'RESTAURANT'
-								? 'Highlights'
-								: 'Recipe Highlights'}
+							Highlights
 						</Title>
 					</Paragraph>
 					<Divider />
 					<List
 						size='large'
-						dataSource={highlights!}
+						dataSource={highlights}
+						renderItem={(item) => <List.Item>{item}</List.Item>}
+						itemLayout='vertical'
+					/>
+
+					<Divider />
+
+					<Paragraph>
+						<Title
+							level={2}
+							className='listing-booking__card-title'
+						>
+							Lowlights
+						</Title>
+					</Paragraph>
+					<Divider />
+					<List
+						size='large'
+						dataSource={lowlights}
 						renderItem={(item) => <List.Item>{item}</List.Item>}
 						itemLayout='vertical'
 					/>

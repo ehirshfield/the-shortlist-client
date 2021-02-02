@@ -20,6 +20,7 @@ export const REVIEW = gql`
 			url
 			highlights
 			video
+			lowlights
 		}
 	}
 `;
