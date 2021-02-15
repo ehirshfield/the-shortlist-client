@@ -45,6 +45,7 @@ export const ReviewsFilters = ({
 				<Option value={TypesFilter.ALL}>All</Option>
 				<Option value={TypesFilter.RECIPE}>Recipes</Option>
 				<Option value={TypesFilter.RESTAURANT}>Restaurants</Option>
+				<Option value={TypesFilter.PRODUCT}>Products</Option>
 			</Select>
 		</div>
 	);
