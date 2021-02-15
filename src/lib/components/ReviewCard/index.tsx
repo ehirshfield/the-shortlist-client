@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Typography } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { iconColor } from '../../utils';
+import {
+	BookOutlined,
+	ShopOutlined,
+	ShoppingCartOutlined,
+} from '@ant-design/icons';
+import { capitalizeFirstLetter, iconColor } from '../../utils';
 
 interface Props {
 	review: {
@@ -22,6 +26,16 @@ const { Text, Title } = Typography;
 
 export const ReviewCard = ({ review }: Props) => {
 	const { id, title, image, rating, type, subtitle } = review;
+
+	const renderIcon = () => {
+		if (type === 'RESTAURANT') {
+			return <ShopOutlined style={{ color: iconColor }} />;
+		} else if (type === 'PRODUCT') {
+			return <ShoppingCartOutlined style={{ color: iconColor }} />;
+		} else if (type === 'RECIPE') {
+			return <BookOutlined style={{ color: iconColor }} />;
+		}
+	};
 
 	return (
 		<Link to={`/review/${id}`}>
@@ -52,8 +66,8 @@ export const ReviewCard = ({ review }: Props) => {
 						</Text>
 					</div>
 					<div className='listing-card__dimensions listing-card__dimensions--guests'>
-						<UserOutlined style={{ color: iconColor }} />
-						<Text> {type} Review</Text>
+						{renderIcon()}
+						<Text> {capitalizeFirstLetter(type)} Review</Text>
 					</div>
 				</div>
 			</Card>

@@ -19,3 +19,10 @@ export const displayErrorMessage = (error: string) => {
 };
 
 export const iconColor = '#1890ff';
+
+export const capitalizeFirstLetter = (input: string) => {
+	return (
+		input.charAt(0).toLocaleUpperCase() +
+		input.substring(1).toLocaleLowerCase()
+	);
+};

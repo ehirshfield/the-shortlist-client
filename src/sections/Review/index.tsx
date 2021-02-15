@@ -55,7 +55,7 @@ export const Review = ({ match }: RouteComponentProps<MatchParams>) => {
 
 	const reviewSideNotesElement = (
 		<ReviewSideNotes
-			type={review ? review.type : ReviewType.RECIPE}
+			type={review?.type!}
 			url={review?.type === ReviewType.RECIPE ? review.url! : ''}
 			highlights={review?.highlights!}
 			lowlights={review?.lowlights!}

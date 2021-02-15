@@ -8,6 +8,7 @@
 //==============================================================
 
 export enum ReviewType {
+  PRODUCT = "PRODUCT",
   RECIPE = "RECIPE",
   RESTAURANT = "RESTAURANT",
 }
@@ -20,6 +21,7 @@ export enum ReviewsFilter {
 
 export enum TypesFilter {
   ALL = "ALL",
+  PRODUCT = "PRODUCT",
   RECIPE = "RECIPE",
   RESTAURANT = "RESTAURANT",
 }

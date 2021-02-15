@@ -29,6 +29,12 @@
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "PRODUCT",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "possibleTypes": null
@@ -86,6 +92,12 @@
           },
           {
             "name": "RECIPE",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PRODUCT",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null

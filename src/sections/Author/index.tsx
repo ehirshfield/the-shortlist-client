@@ -13,10 +13,11 @@ import {
 import { UploadChangeParam } from 'antd/lib/upload';
 import {
 	BookOutlined,
-	BankOutlined,
 	LoadingOutlined,
 	PlusOutlined,
 	MinusCircleOutlined,
+	ShopOutlined,
+	ShoppingCartOutlined,
 } from '@ant-design/icons';
 import { Viewer } from '../../lib/types';
 import { ADD_REVIEW } from '../../lib/graphql/mutations';
@@ -175,6 +176,16 @@ export const Author = ({ viewer }: Props) => {
 				</Item>
 			</Fragment>
 		);
+	};
+
+	const renderTypeInputs = (type: ReviewType) => {
+		if (type === ReviewType.RECIPE) {
+			return renderRecipeInputs();
+		} else if (type === ReviewType.RESTAURANT) {
+			return renderRestaurantInputs();
+		} else if (type === ReviewType.PRODUCT) {
+			return null;
+		}
 	};
 
 	const renderHighlightsInputs = () => {
@@ -398,11 +409,17 @@ export const Author = ({ viewer }: Props) => {
 					>
 						<Radio.Button value={ReviewType.RECIPE}>
 							<BookOutlined style={{ color: iconColor }} />
-							<span>Recipe</span>
+							<span> Recipe</span>
 						</Radio.Button>
 						<Radio.Button value={ReviewType.RESTAURANT}>
-							<BankOutlined style={{ color: iconColor }} />
-							<span>Restaurant</span>
+							<ShopOutlined style={{ color: iconColor }} />
+							<span> Restaurant</span>
+						</Radio.Button>
+						<Radio.Button value={ReviewType.PRODUCT}>
+							<ShoppingCartOutlined
+								style={{ color: iconColor }}
+							/>
+							<span> Product</span>
 						</Radio.Button>
 					</Radio.Group>
 				</Item>
@@ -454,9 +471,7 @@ export const Author = ({ viewer }: Props) => {
 					/>
 				</Item>
 
-				{reviewType === ReviewType.RESTAURANT
-					? renderRestaurantInputs()
-					: renderRecipeInputs()}
+				{renderTypeInputs(reviewType)}
 
 				{renderHighlightsInputs()}
 

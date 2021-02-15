@@ -3,7 +3,9 @@ import {
 	ApolloProvider,
 	InMemoryCache,
 	useMutation,
+	createHttpLink,
 } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import React, { useState, useEffect, useRef } from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -29,12 +31,23 @@ import reportWebVitals from './reportWebVitals';
 import './styles/index.css';
 import { AppHeaderSkeleton, ErrorBanner } from './lib/components';
 
-const client = new ApolloClient({
+const httpLink = createHttpLink({
 	uri: '/api',
+});
+
+const authLink = setContext((_, { headers }) => {
+	const token = sessionStorage.getItem('token');
+	return {
+		headers: {
+			...headers,
+			'X-CSRF-TOKEN': token || '',
+		},
+	};
+});
+
+const client = new ApolloClient({
+	link: authLink.concat(httpLink),
 	cache: new InMemoryCache(),
-	headers: {
-		'X-CSRF-TOKEN': sessionStorage.getItem('token') || '',
-	},
 });
 
 const initialViewer: Viewer = {
