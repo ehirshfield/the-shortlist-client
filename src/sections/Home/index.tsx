@@ -12,7 +12,6 @@ import { ReviewsFilter, TypesFilter } from '../../lib/graphql/globalTypes';
 import { useScrollToTop } from '../../lib/hooks';
 import { displayErrorMessage } from '../../lib/utils';
 
-import mapBackground from './assets/map-background.jpg';
 import recipeImage from './assets/recipes-text.jpg';
 import restaurantImage from './assets/restaurants-text2.jpg';
 
@@ -63,10 +62,7 @@ export const Home = ({ history }: RouteComponentProps) => {
 	};
 
 	return (
-		<Content
-			className='home'
-			style={{ backgroundImage: `url(${mapBackground})` }}
-		>
+		<Content className='home'>
 			{renderReviewsSection()}
 
 			<HomeHero onSearch={onSearch} />
