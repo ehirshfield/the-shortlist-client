@@ -2,7 +2,7 @@
 
 A Typescript React Frontend Client for Food Fascinations!
 
-Check out the blog here: [The Shortlist](https://the-shortlist.herokuapp.com/).
+Check out the blog here: [The Shortlist](https://www.theshortlistblog.com/).
 
 ## To Run Locally
 
