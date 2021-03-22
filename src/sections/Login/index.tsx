@@ -37,6 +37,7 @@ export const Login = ({ setViewer }: Props) => {
 				setViewer(data.logIn);
 				sessionStorage.setItem('token', data.logIn.token);
 				displaySuccessNotification("You've successfully logged in!");
+				window.location.reload();
 			}
 		},
 	});

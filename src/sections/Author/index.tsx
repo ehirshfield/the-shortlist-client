@@ -480,7 +480,7 @@ export const Author = ({ viewer }: Props) => {
 				<Item
 					name='image'
 					label='Image'
-					extra='Images have to be under 1MB in size and of type JPG or PNG'
+					extra='Images have to be under 5MB in size and of type JPG or PNG'
 					rules={[
 						{
 							required: true,
@@ -547,14 +547,14 @@ const beforeImageUpload = (file: File) => {
 	const fileIsValidImage =
 		file.type === 'image/jpeg' || file.type === 'image/png';
 
-	const fileIsValidSize = file.size / 1024 / 1024 < 1;
+	const fileIsValidSize = file.size / 1024 / 1024 < 5;
 
 	if (!fileIsValidImage) {
 		displayErrorMessage('Only able to upload jpeg and png files');
 		return false;
 	}
 	if (!fileIsValidSize) {
-		displayErrorMessage('Only allowed to upload images < 1MB in size!');
+		displayErrorMessage('Only allowed to upload images < 5MB in size!');
 		return false;
 	}
 
