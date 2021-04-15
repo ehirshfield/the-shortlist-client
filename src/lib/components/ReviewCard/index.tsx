@@ -50,7 +50,7 @@ export const ReviewCard = ({ review }: Props) => {
 						}}
 					/>
 				}
-				style={{ width: 292 }}
+				bodyStyle={{ width: 292 }}
 			>
 				<div className='listing-card__details'>
 					<div className='listing-card__description'>
