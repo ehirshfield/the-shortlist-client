@@ -103,7 +103,10 @@ export const Reviews = ({ match }: RouteComponentProps<MatchParams>) => {
 						gutter: 8,
 						xs: 1,
 						sm: 2,
+						md: 2,
 						lg: 4,
+						xl: 4,
+						xxl: 4,
 					}}
 					dataSource={reviews.result}
 					renderItem={(review) => (
